@@ -1,0 +1,53 @@
+# ======================================
+# Node & Environment
+# ======================================
+node_modules/
+**/node_modules/
+.env
+**/.env
+.env.local
+.env.*.local
+
+# ======================================
+# Logs
+# ======================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================================
+# Build & Cache
+# ======================================
+dist/
+build/
+.cache/
+.tmp/
+
+# ======================================
+# System / Editor
+# ======================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Vitest / Coverage / Tests
+.vitest
+coverage/
+
+# Vite
+.vite
+
+# TypeScript
+*.tsbuildinfo
+
+# ESLint / Prettier
+.eslintcache
+.prettiercache
+
+# Project specific
+Documents/

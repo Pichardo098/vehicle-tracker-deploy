@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: ./front-vehicle-tracker
+    container_name: vehicle_frontend
+    env_file:
+      - ./front-vehicle-tracker/.env
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - vehicle-net
+
+  backend:
+    build: ./api-vehicle-tracker
+    container_name: vehicle_backend
+    env_file:
+      - ./api-vehicle-tracker/.env
+    depends_on:
+      - db
+    command: >
+      sh -c "
+      echo 'Esperando a la base de datos...';
+      sleep 4;
+      npm run db:migrate;
+      npm run db:seed;
+      node src/server.js
+      "
+    ports:
+      - "3000:3000"
+    networks:
+      - vehicle-net
+
+  db:
+    image: postgres:16
+    container_name: vehicle_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vehicle_tracker_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - vehicle-net
+
+networks:
+  vehicle-net:
+
+volumes:
+  pgdata:
